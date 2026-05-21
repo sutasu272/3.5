@@ -28,7 +28,7 @@ func main() {
 		// Стоимость
 		cost := consumption * BaseTariff
 		if night == true {
-			cost *= float64(NightDiscount)
+			cost *= (1 - NightDiscount)
 		}
 		if consumption > 10 {
 			cost += float64(HighLoadTax) * cost
