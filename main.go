@@ -5,52 +5,74 @@ import (
 )
 
 func main() {
-	const (
-		BaseTariff    = 0.45 // цена за 1 кВт·ч
-		HighLoadTax   = 0.15 // налог на высокое потребление
-		NightDiscount = 0.30 // ночная скидка
-	)
-	for {
-		var name string
-		var W int
-		var hours int
-		var night bool
-		fmt.Print("Введите название прибора (или 'done'):")
-		fmt.Scanln(&name)
-		fmt.Print("Мощность(Вт):")
-		fmt.Scanln(&W)
-		fmt.Print("Время работы(часы):")
-		fmt.Scanln(&hours)
-		fmt.Print("Ночной режим (true/false):")
-		fmt.Scanln(&night)
-		// Расход
-		consumption := float64(W) * float64(hours) / 1000.0 // кВт·ч
-		// Стоимость
-		cost := consumption * BaseTariff
-		if night == true {
-			cost *= (1 - NightDiscount)
-		}
-		if consumption > 10 {
-			cost += float64(HighLoadTax) * cost
-		}
-		category := ""
-		switch {
-		case W < 100:
-			category = "Экономный"
-		case W >= 100 && W < 1000:
-			category = "Стандартный"
-		case W >= 1000:
-			category = "Мощный"
-		}
-		fmt.Println()
-		fmt.Printf("Прибор: %s [Категория: %s]\n", name, category)
-		fmt.Printf("Расход: %.2f кВт·ч\n", consumption)
-		fmt.Printf("Стоимость: %.2f .\n", cost)
-		fmt.Println()
+	// Задание 1
+	mass := [...]string{"Прыжки на одной ноге", "Выпады с шагом вперёд", "Подъёмы на носки с медленным опусканием"}
+	mass2 := [...]string{"Приседания с собственным весом", "Выпады назад", "Подъёмы на носки стоя", "Птица-собака"}
+	fmt.Println(len(mass))
+	fmt.Println(len(mass2))
 
-		if name == "done" {
+	// Задание 2
+	subjectsList := [...]string{"Физика", "Химия", "География"}
+	fmt.Println(subjectsList[0])
+	fmt.Println(subjectsList[len(subjectsList)-1])
+	subjectsList[1] = "Биология"
+	fmt.Println(subjectsList)
+
+	// Задание 3
+	arr := [...]string{"Tom", "35", "New York"}
+	name := arr[0]
+	age := arr[1]
+	city := arr[2]
+	fmt.Printf("Name: %s, Age: %s, City: %s\n", name, age, city)
+
+	// Задание 4
+	numbersList := [...]int{1, 2, 3, 4, 5}
+	flag := false
+	for _, num := range numbersList {
+		if num == 3 {
+			fmt.Println("Число 3 найдено в массиве")
+			flag = true
 			break
 		}
 	}
-	fmt.Println("расчет завершен.")
+	if !flag {
+		fmt.Println("Число 3 отсутствует в массиве")
+	}
+
+	// Задание 5
+	friendsList := [...]string{"Svyatoslav", "Islam", "Kirill", "David", "Erdaulet"}
+	flag = false
+	for _, friend := range friendsList {
+		if friend == "Bekbolat" {
+			fmt.Println("мне очень повезло")
+			flag = true
+			break
+		}
+	}
+	if !flag {
+		fmt.Println("Мне не повезло")
+	}
+	// Задание 6
+	firstList := [...]int{1, 2, 3}
+	secondList := [...]int{1, 2, 4}
+	if firstList == secondList {
+		fmt.Println("Массивы равны")
+	} else {
+		fmt.Println("Массивы не равны")
+	}
+	// Задание 7
+	myWishList := [...]string{"Путешествие в Японию", "Новый смартфон", "машина"}
+	friendsWishList := [...]string{"компьютер", "кофемашина", "кровать"}
+	registrationList := [6]string{}
+	for i := range myWishList {
+		registrationList[2*i] = myWishList[i]
+		registrationList[2*i+1] = friendsWishList[i]
+	}
+	fmt.Println(registrationList)
+	// Задание 8
+	toyList := [...]string{"Car", "Doll", "Ball"}
+	testToyList := toyList
+	testToyList[1] = "Boat"
+	fmt.Println(toyList)
+	fmt.Println(testToyList)
 }
