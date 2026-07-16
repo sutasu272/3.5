@@ -1,72 +1,95 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 func main() {
-	// Задание 1
-	// numbers := [3][5]int{}
-	// for i := 0; i < len(numbers); i++ {
-	// 	number1 := [5]int{}
-	// 	for j := 0; j < len(number1); j++ {
-	// 		fmt.Scan(&number1[j])
-	// 	}
-	// 	numbers[i] = number1
-	// }
-	// fmt.Println(numbers)
-	// Задание 2
-	// snowflake := [11][11]string{}
-	// for i := 0; i < len(snowflake); i++ {
-	// 	for j := 0; j < len(snowflake[i]); j++ {
-	// 		snowflake[i][j] = "."
-	// 	}
-	// }
-	// for i := 0; i < len(snowflake); i++ {
-	// 	snowflake[i][5] = "*"
-	// 	snowflake[5][i] = "*"
-	// 	snowflake[i][i] = "*"
-	// 	snowflake[i][10-i] = "*"
-	// }
-	// for i := 0; i < len(snowflake); i++ {
-	// 	fmt.Println(snowflake[i])
-	// }
-	//Задание 3
-	// chessboard := [8][8]string{}
-	// for i := 0; i < len(chessboard); i++ {
-	// 	for j := 0; j < len(chessboard[i]); j++ {
-	// 		chessboard[i][j] = "."
-	// 	}
-	// }
-	// for i := 0; i < len(chessboard); i++ {
-	// 	for j := 0; j < len(chessboard[i]); j++ {
-	// 		fmt.Print(chessboard[i][j], "*")
-	// 	}
-	// 	fmt.Println()
-	// }
-	//Задание 4
-	// matrix := [4][4]int{}
-	// for i := 0; i < len(matrix); i++ {
-	// 	for j := 0; j < len(matrix[i]); j++ {
-	// 		fmt.Scan(&matrix[i][j])
-	// 	}
-	// }
-	// var i int
-	// var j int
-	// fmt.Scan(&i, &j)
-	// matrix[i], matrix[j] = matrix[j], matrix[i]
-	// fmt.Println(matrix)
 
-	//Задание 5
-	matrix1 := [4][4]int{}
-	for i := 0; i < len(matrix1); i++ {
-		for j := 0; j < len(matrix1[i]); j++ {
-			fmt.Scan(&matrix1[i][j])
+	numbers := []int{}
+	userInput := 0
+	for {
+		fmt.Print("Введите число (или 0 для завершения): ")
+		fmt.Scan(&userInput)
+		if userInput == 0 {
+			break
+		}
+		numbers = append(numbers, userInput)
+	}
+	// Задание 1
+	sum := 0
+	for _, num := range numbers {
+		sum += num
+	}
+	fmt.Println("Сумма чисел:", sum)
+
+	// Задание 2
+	var values []int
+	for _, val := range numbers {
+		if val%2 == 0 {
+			values = append(values, val)
 		}
 	}
-	var i int
-	var j int
-	fmt.Scan(&i, &j)
-	for x := 0; x < len(matrix1); x++ {
-		matrix1[x][j], matrix1[x][i] = matrix1[x][i], matrix1[x][j]
+	fmt.Println("Все числа:", numbers)
+	fmt.Println("Четные числа:", values)
+
+	// Задание 3
+	n := 2
+	numbers = append(numbers[:n], numbers[n+1:]...)
+	fmt.Println("После удаления элемента:", numbers)
+
+	// Задание 4
+	maxVal := slices.Max(numbers)
+	minVal := slices.Min(numbers)
+	fmt.Println("Минимальное значение:", minVal)
+	fmt.Println("Максимальное значение:", maxVal)
+
+	// Задание 5
+	strings := []string{}
+	userInput2 := ""
+	for {
+		fmt.Print("Введите строку (или слово \"stop\" для завершения): ")
+		fmt.Scan(&userInput2)
+		if userInput2 == "stop" {
+			break
+		}
+		strings = append(strings, userInput2)
 	}
-	fmt.Println(matrix1)
+	reversedStrings := make([]string, len(strings))
+	for i, str := range strings {
+		reversedStrings[len(strings)-1-i] = str
+	}
+	fmt.Println("Исходные строки:", strings)
+	fmt.Println("Строки в обратном порядке:", reversedStrings)
+
+	// Задание 6
+	isSorted := true
+	for i := 1; i < len(numbers); i++ {
+		if numbers[i] < numbers[i-1] {
+			isSorted = false
+			break
+		}
+	}
+	fmt.Println("Массив чисел отсортирован:", isSorted)
+
+	// Задание 7
+	myWishList := []string{"Книга", "Ноутбук", "Телефон", "Путешествие"}
+	friendWishList := []string{"Телевизор", "Дом", "Комп", "Машина"}
+	registrationList := []string{}
+	for _, val := range myWishList {
+		registrationList = append(registrationList, val)
+	}
+	for _, val := range friendWishList {
+		registrationList = append(registrationList, val)
+	}
+	fmt.Println("Объединенный список желаний:", registrationList)
+
+	// Задание 8
+	toyList := []string{"Car", "Doll", "Ball"}
+	testToyList := make([]string, len(toyList))
+	copy(testToyList, toyList)
+	testToyList[1] = "Boat"
+	fmt.Println(toyList)
+	fmt.Println(testToyList)
 }
