@@ -2,94 +2,156 @@ package main
 
 import (
 	"fmt"
-	"slices"
+	"reflect"
 )
 
 func main() {
-
-	numbers := []int{}
-	userInput := 0
-	for {
-		fmt.Print("Введите число (или 0 для завершения): ")
-		fmt.Scan(&userInput)
-		if userInput == 0 {
-			break
-		}
-		numbers = append(numbers, userInput)
-	}
 	// Задание 1
-	sum := 0
-	for _, num := range numbers {
-		sum += num
+	toolUsage := map[string]int{
+		"Go":     3,
+		"VSCode": 5,
+		"Git":    2,
 	}
-	fmt.Println("Сумма чисел:", sum)
+	for tool, usage := range toolUsage {
+		fmt.Printf("%s: %d\n", tool, usage)
+	}
 
 	// Задание 2
-	var values []int
-	for _, val := range numbers {
-		if val%2 == 0 {
-			values = append(values, val)
-		}
+	buildStatus := map[string]bool{
+		"build": true,
+		"run":   false,
 	}
-	fmt.Println("Все числа:", numbers)
-	fmt.Println("Четные числа:", values)
+	if buildStatus["build"] {
+		fmt.Println("Сборка прошла успешно")
+	}
 
 	// Задание 3
-	n := 2
-	numbers = append(numbers[:n], numbers[n+1:]...)
-	fmt.Println("После удаления элемента:", numbers)
+	var userInfo = map[string]string{
+		"name":       "John Doe",
+		"isLoggedIn": "true",
+	}
+	if userInfo["isLoggedIn"] == "true" {
+		fmt.Printf("Пользователь %s вошел в систему\n", userInfo["name"])
+	}
 
 	// Задание 4
-	maxVal := slices.Max(numbers)
-	minVal := slices.Min(numbers)
-	fmt.Println("Минимальное значение:", minVal)
-	fmt.Println("Максимальное значение:", maxVal)
+	var cpuLoad = map[int]int{
+		1: 40,
+		2: 65,
+		3: 30,
+	}
+	maxLoad := 0
+	for core, load := range cpuLoad {
+		if load > maxLoad {
+			maxLoad = load
+			fmt.Printf("Ядро %d имеет максимальную загрузку: %d%%\n", core, load)
+		}
+	}
 
 	// Задание 5
-	strings := []string{}
-	userInput2 := ""
-	for {
-		fmt.Print("Введите строку (или слово \"stop\" для завершения): ")
-		fmt.Scan(&userInput2)
-		if userInput2 == "stop" {
-			break
+	var examResults = map[string]int{
+		"Aruzhan": 85,
+		"Dias":    92,
+		"Alina":   78,
+	}
+	for exam, result := range examResults {
+		if result >= 80 {
+			fmt.Printf("Студент %s сдал экзамен с оценкой %d\n", exam, result)
+		} else {
+			fmt.Printf("Студент %s не сдал экзамен с оценкой %d\n", exam, result)
 		}
-		strings = append(strings, userInput2)
 	}
-	reversedStrings := make([]string, len(strings))
-	for i, str := range strings {
-		reversedStrings[len(strings)-1-i] = str
-	}
-	fmt.Println("Исходные строки:", strings)
-	fmt.Println("Строки в обратном порядке:", reversedStrings)
 
 	// Задание 6
-	isSorted := true
-	for i := 1; i < len(numbers); i++ {
-		if numbers[i] < numbers[i-1] {
-			isSorted = false
-			break
-		}
+	var words = []string{"go", "is", "fast"}
+	var wordLengths = make(map[string]int)
+	for _, word := range words {
+		wordLengths[word] = len(word)
 	}
-	fmt.Println("Массив чисел отсортирован:", isSorted)
+	for word, length := range wordLengths {
+		fmt.Printf("Слово '%s' имеет длину %d\n", word, length)
+	}
 
 	// Задание 7
-	myWishList := []string{"Книга", "Ноутбук", "Телефон", "Путешествие"}
-	friendWishList := []string{"Телевизор", "Дом", "Комп", "Машина"}
-	registrationList := []string{}
-	for _, val := range myWishList {
-		registrationList = append(registrationList, val)
+	var menu = map[string]int{
+		"Burger": 2500,
+		"Pizza":  3200,
+		"Tea":    500,
 	}
-	for _, val := range friendWishList {
-		registrationList = append(registrationList, val)
+	var dishName string
+	fmt.Print("Введите название блюда: ")
+	fmt.Scanln(&dishName)
+	if price, exists := menu[dishName]; exists {
+		fmt.Printf("Цена блюда %s: %d\n", dishName, price)
+	} else {
+		fmt.Println("Блюдо не найдено")
 	}
-	fmt.Println("Объединенный список желаний:", registrationList)
 
 	// Задание 8
-	toyList := []string{"Car", "Doll", "Ball"}
-	testToyList := make([]string, len(toyList))
-	copy(testToyList, toyList)
-	testToyList[1] = "Boat"
-	fmt.Println(toyList)
-	fmt.Println(testToyList)
+	var loginAttempts = map[string]int{
+		"admin": 2,
+		"guest": 0,
+	}
+	loginAttempts["admin"]++
+	if loginAttempts["admin"] > 2 {
+		fmt.Println("Доступ заблокирован")
+	}
+
+	// Задание 9
+	sales := [2][3]int{
+		{10, 20, 30},
+		{15, 25, 35},
+	}
+	total := make(map[int]int)
+	for shop, salesDay := range sales {
+		sum := 0
+		for _, count := range salesDay {
+			sum += count
+		}
+		total[shop+1] = sum
+	}
+
+	for shop, salesTotal := range total {
+		fmt.Printf("Магазин %d: %d продаж\n", shop, salesTotal)
+	}
+
+	// Задание 10
+	var numbers = []int{4, 7, 2, 9, 5}
+	var numberStatus = make(map[int]string)
+	for _, number := range numbers {
+		if number%2 == 0 {
+			numberStatus[number] = "even"
+		} else {
+			numberStatus[number] = "odd"
+		}
+	}
+	fmt.Println("Статус чисел:")
+	for number, status := range numberStatus {
+		fmt.Printf("%d: %s\n", number, status)
+	}
+
+	// Задание 11
+	var defaultConfig = map[string]string{
+		"host": "localhost",
+		"port": "8080",
+		"mode": "production",
+	}
+	var currentConfig = map[string]string{
+		"host": "localhost",
+		"port": "8080",
+		"mode": "production",
+	}
+
+	if reflect.DeepEqual(defaultConfig, currentConfig) {
+		fmt.Println("Конфигурации совпадают")
+	} else {
+		fmt.Println("Конфигурации отличаются")
+	}
+
+	currentConfig["mode"] = "debug"
+	if reflect.DeepEqual(defaultConfig, currentConfig) {
+		fmt.Println("Конфигурации совпадают")
+	} else {
+		fmt.Println("Конфигурации отличаются")
+	}
 }
